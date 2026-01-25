@@ -1,0 +1,49 @@
+# function to create character with these arguments: name, strength, intelligence, charisma
+def create_character(name, strength, intelligence, charisma):
+#character name validation
+    if not isinstance(name, str):
+        return 'The character name should be a string'
+    if len(name) == 0:
+        return 'The character should have a name'
+    if len(name) > 10:
+        return 'The character name is too long'
+    if ' ' in name:
+        return 'The character name should not contain spaces'
+
+#validation of stats
+    stats_list = [strength, intelligence, charisma]
+
+    if not all(isinstance(stat, int) for stat in stats_list):
+        return "All stats should be integers"
+    if any(stat < 1 for stat in stats_list):
+        return "All stats should be no less than 1"
+    if any(stat > 4 for stat in stats_list):
+        return "All stats should be no more than 4"
+    if sum(stats_list) != 7:
+        return "The character should start with 7 points"
+
+#if all values pass the verification, the function should return a string with four lines            
+    full_dot = '●'
+    empty_dot = '○'
+
+#function to format each stat line with dots (step5 requirements)
+    def format_stat_line(label, value):
+        return f"{label} {full_dot *value}{empty_dot *(10-value)}"
+
+    string_fourlines = (
+        f"{name}\n"
+        f"{format_stat_line('STR', strength)}\n"
+        f"{format_stat_line('INT', intelligence)}\n"
+        f"{format_stat_line('CHA', charisma)}"
+    )
+    return string_fourlines
+
+# Example with valid inputs (all values pass verification)
+valid_output = create_character("ren", 4, 2, 1)
+print("--- Valid Output ---")
+print(valid_output)
+
+# Example with invalid inputs (returns an error message string instead of 4 lines)
+invalid_output = create_character("ThisNameIsTooLong", 2, 4, 1)
+print("\n--- Invalid Output (Name Too Long) ---")
+print(invalid_output)
