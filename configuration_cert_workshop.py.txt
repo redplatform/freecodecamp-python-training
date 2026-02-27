@@ -1,0 +1,37 @@
+def add_setting(dict_settings, key_value_pair):
+    key, value = key_value_pair
+    key = key.lower()
+    value = value.lower()
+    if key in dict_settings:
+        return f"Setting '{key}' already exists! Cannot add a new setting with this name."   
+    dict_settings[key] = value
+    return f"Setting'{key} added with value '{value}' successfully!"
+
+def update_setting(dict_settings, key_value_pair):
+    key, value = key_value_pair
+    key = key.lower()
+    value = value.lower()
+    if key in dict_settings:
+        dict_settings[key] = value
+        return f"Setting '{key}' updated to '{value}' successfully!"
+    dict_settings[key] = not(value)
+    return f"Setting '{key}' does not exist! Cannot update a non-existing setting."
+
+def delete_setting(dict_settings, key):
+    key = key.lower()
+    if key in dict_settings:
+        del dict_settings[key]
+        return f"Setting '{key}' deleted successfully!"
+    return "Setting not found!"
+
+def view_settings(dict_settings):
+    if not dict_settings:
+        return "No settings available."
+    output = "Current User Settings:\n"
+
+    for key, value in dict_settings.items():
+        output += f"{key.capitalize()}: {value}\n"
+
+    return output
+ 
+test_settings = {"theme" : "dark", "notifications": "enabled", "volume": "high"}
